@@ -76,8 +76,12 @@ WSGI_APPLICATION = 'pipenv_supply_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'items_data',
+        'USER': 'root',
+        'PASSWORD': 'Wbiol1018*',
+        'HOST': 'localhost',
+        'PORT': '3306'
     }
 }
 
