@@ -17,11 +17,6 @@ class ItemCategory(models.Model):
 
 class ItemType(models.Model):
     name = models.CharField(max_length=180)
-    ITEM_TYPE_TAG_CHOICES = [
-        ('M', 'MEDICATION'),
-        ('S', 'SUPPLY')
-    ]
-    item_type_tag = models.CharField(choices=ITEM_TYPE_TAG_CHOICES, max_length=100)
 
     class Meta:
         db_table = 'item_type'
@@ -30,9 +25,12 @@ class ItemType(models.Model):
         return self.name
 
 
+# TODO(!!): figure out User model integration.
 class Item(models.Model):
+    """
+    Parent class for below item models
+    """
     name = models.CharField(max_length=180)
-    type = models.ForeignKey(ItemType, on_delete=models.CASCADE)
     category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
     size = models.CharField(max_length=40)
 
@@ -42,7 +40,7 @@ class Item(models.Model):
         abstract = True
 
 
-class Asset(Item):
+class ItemAsset(Item):
     asset_id = models.CharField(max_length=20)
 
     class Meta:
@@ -50,3 +48,18 @@ class Asset(Item):
 
     def __str__(self):
         return self.name
+
+
+class ItemMedication(Item):
+    brand_name = models.CharField(max_length=120)
+    concentration = models.CharField(max_length=40)
+    is_controlled = models.BooleanField(default=False)
+
+    class Meta:
+        db_table = 'item_medication'
+
+    def __str__(self):
+        return '%s (%s)' % (
+            self.brand_name,
+            self.brand_name
+        )
