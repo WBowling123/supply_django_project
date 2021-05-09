@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+
+{% block body %}
+{% for medication in all_medications %}
+    <li>{{ medication.name }}</li>
+{% endfor %}
+{% endblock body %}
