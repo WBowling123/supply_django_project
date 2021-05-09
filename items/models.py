@@ -10,6 +10,7 @@ class ItemCategory(models.Model):
 
     class Meta:
         db_table = 'item_category'
+        verbose_name_plural = 'Item Categories'
 
     def __str__(self):
         return self.name
@@ -60,6 +61,6 @@ class ItemMedication(Item):
 
     def __str__(self):
         return '%s (%s)' % (
-            self.brand_name,
+            self.name,
             self.brand_name
         )
