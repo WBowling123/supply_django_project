@@ -6,6 +6,9 @@ from django.contrib.auth.models import User
 
 
 class ItemCategory(models.Model):
+    """
+    Category classification for below item models
+    """
     name = models.CharField(max_length=120)
 
     class Meta:
@@ -17,6 +20,10 @@ class ItemCategory(models.Model):
 
 
 class ItemType(models.Model):
+    """
+    TODO:
+    Determine usability (can include this into categories potentially).
+    """
     name = models.CharField(max_length=180)
 
     class Meta:
@@ -32,7 +39,7 @@ class Item(models.Model):
     Parent class for below item models
     """
     name = models.CharField(max_length=180)
-    category = models.ForeignKey(ItemCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(ItemCategory, default=1, on_delete=models.CASCADE)
     size = models.CharField(max_length=40)
 
     class Meta:
@@ -42,6 +49,9 @@ class Item(models.Model):
 
 
 class ItemAsset(Item):
+    """
+    Assets (Higher-Value reusable equipment)
+    """
     asset_id = models.CharField(max_length=20)
 
     class Meta:
@@ -52,6 +62,9 @@ class ItemAsset(Item):
 
 
 class ItemMedication(Item):
+    """
+    Medication-Specific item model
+    """
     brand_name = models.CharField(max_length=120)
     concentration = models.CharField(max_length=40)
     is_controlled = models.BooleanField(default=False)
